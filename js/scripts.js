@@ -34,24 +34,27 @@ let currentSlide = 0;
 function renderSlide(slideIndex) {
     const slide = slides[slideIndex];
     const textBox = d3.select("#text-box");
-    const chart = d3.select("#chart");
+    const chartDeaths = d3.select("#chart-deaths");
+    const chartVaccinations = d3.select("#chart-vaccinations");
 
     textBox.selectAll("*").remove();
     textBox.append("h2").text(slide.title);
     textBox.append("p").text(slide.content);
 
-    chart.selectAll("*").remove();
+    chartDeaths.selectAll("*").remove();
+    chartVaccinations.selectAll("*").remove();
+    
     const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-    const width = chart.node().clientWidth - margin.left - margin.right;
-    const height = (chart.node().clientHeight - margin.top - margin.bottom) / 2;
+    const width = chartDeaths.node().clientWidth - margin.left - margin.right;
+    const height = chartDeaths.node().clientHeight - margin.top - margin.bottom;
 
-    const svgDeaths = chart.append("svg")
+    const svgDeaths = chartDeaths.append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const svgVaccinations = chart.append("svg")
+    const svgVaccinations = chartVaccinations.append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -88,8 +91,7 @@ function renderSlide(slideIndex) {
             .x(d => x(d.month))
             .y(d => yVaccinations(d.new_vaccinations_smoothed))
             .curve(d3.curveMonotoneX);
-
-        svgDeaths.append("path")
+            svgDeaths.append("path")
             .data([filteredData])
             .attr("class", "line deaths")
             .attr("d", lineDeaths)
@@ -181,45 +183,38 @@ function renderSlide(slideIndex) {
     });
 }
 
+function updateNavButtons() {
+    d3.selectAll(".nav-btn").classed("active", false);
+    d3.select(`#btn${currentSlide + 1}`).classed("active", true);
+}
+
 d3.select("#yearSlider").on("input", function() {
     const year = +this.value;
     currentSlide = slides.findIndex(slide => slide.year === year);
-    d3.select("#yearLabel").text(year);
     renderSlide(currentSlide);
-});
-
-d3.select("#prevBtn").on("click", () => {
-    if (currentSlide > 0) {
-        currentSlide--;
-        renderSlide(currentSlide);
-        document.getElementById("yearSlider").value = slides[currentSlide].year;
-    }
-});
-
-d3.select("#nextBtn").on("click", () => {
-    if (currentSlide < slides.length - 1) {
-        currentSlide++;
-        renderSlide(currentSlide);
-        document.getElementById("yearSlider").value = slides[currentSlide].year;
-    }
+    updateNavButtons();
 });
 
 d3.select("#btn1").on("click", () => {
     currentSlide = 0;
     renderSlide(currentSlide);
     document.getElementById("yearSlider").value = slides[currentSlide].year;
+    updateNavButtons();
 });
 
 d3.select("#btn2").on("click", () => {
     currentSlide = 1;
     renderSlide(currentSlide);
     document.getElementById("yearSlider").value = slides[currentSlide].year;
+    updateNavButtons();
 });
 
 d3.select("#btn3").on("click", () => {
     currentSlide = 2;
     renderSlide(currentSlide);
     document.getElementById("yearSlider").value = slides[currentSlide].year;
+    updateNavButtons();
 });
 
 renderSlide(currentSlide);
+updateNavButtons();
