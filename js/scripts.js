@@ -6,7 +6,7 @@ const slides = [
         year: 2021,
         annotations: [
             { month: 1, deaths: 190740.85799999986, vaccinations: 60356748.0, text: "January 2021: High deaths, vaccination rollout begins." },
-            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May: Continued vaccination efforts." }
+            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May 2021: Continued vaccination efforts." }
         ]
     },
     {
@@ -44,8 +44,21 @@ function renderSlide(slideIndex) {
     chartDeaths.selectAll("*").remove();
     chartVaccinations.selectAll("*").remove();
 
-    const margin = { top: 20, right: 30, bottom: 50, left: 50 };
-    const width = document.querySelector("#graphs").clientWidth / 2 - margin.left - margin.right;
+    if (chartDeaths.empty() || chartVaccinations.empty()) {
+        console.error("Chart elements not found!");
+        return;
+    }
+
+    const chartDeathsElement = chartDeaths.node();
+    const chartVaccinationsElement = chartVaccinations.node();
+
+    if (!chartDeathsElement || !chartVaccinationsElement) {
+        console.error("Could not find chart elements.");
+        return;
+    }
+
+    const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+    const width = 500;
     const height = 300;
 
     const svgDeaths = chartDeaths.append("svg")
@@ -120,7 +133,7 @@ function renderSlide(slideIndex) {
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
-        svgVaccinations.append("g")
+            svgVaccinations.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
@@ -129,42 +142,6 @@ function renderSlide(slideIndex) {
 
         svgVaccinations.append("g")
             .call(yAxisVaccinations);
-
-        // Y-axis label for deaths chart
-        svgDeaths.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .text("New Deaths Smoothed");
-
-        // Chart title for deaths chart
-        svgDeaths.append("text")
-            .attr("x", width / 2)
-            .attr("y", 0 - (margin.top / 2))
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .style("text-decoration", "underline")
-            .text("COVID-19 New Deaths Smoothed");
-
-        // Y-axis label for vaccinations chart
-        svgVaccinations.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .text("New Vaccinations Smoothed");
-
-        // Chart title for vaccinations chart
-        svgVaccinations.append("text")
-            .attr("x", width / 2)
-            .attr("y", 0 - (margin.top / 2))
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .style("text-decoration", "underline")
-            .text("COVID-19 New Vaccinations Smoothed");
 
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -214,12 +191,6 @@ function renderSlide(slideIndex) {
             svgDeaths.append("text")
                 .attr("x", x(annotation.month))
                 .attr("y", yDeaths(annotation.deaths))
-                .attr("class", "annotation")
-                .text(annotation.text);
-
-            svgVaccinations.append("text")
-                .attr("x", x(annotation.month))
-                .attr("y", yVaccinations(annotation.vaccinations))
                 .attr("class", "annotation")
                 .text(annotation.text);
         });
