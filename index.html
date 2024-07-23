@@ -11,13 +11,18 @@
         <h1>COVID-19: The Comparative Study for COVID-19 Deaths and Vaccinations</h1>
         <div class="nav-buttons">
             <input type="range" id="yearSlider" min="2021" max="2023" step="1" value="2021">
-            <label for="yearSlider" id="yearLabel">2021</label>
+            <div id="slider-values">
+                <span>2021</span>
+                <span>2022</span>
+                <span>2023</span>
+            </div>
         </div>
         <div id="content">
             <div id="text-box"></div>
             <div id="chart"></div>
         </div>
     </div>
+    <!-- Load D3 from CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
