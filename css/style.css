@@ -18,12 +18,16 @@ h1 {
     width: 60%;
 }
 
-#slider-values {
+/* #slider-values {
     display: flex;
     justify-content: space-between;
     width: 60%;
     margin-top: 5px;
+} */
+#slider-values span {
+    font-size: 14px;
 }
+
 
 #content {
     display: flex;
