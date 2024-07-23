@@ -132,6 +132,7 @@ function renderSlide(slideIndex) {
         svgDeaths.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
+
             svgVaccinations.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
