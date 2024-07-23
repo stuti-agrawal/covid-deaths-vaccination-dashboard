@@ -5,28 +5,26 @@ const slides = [
         content: "2021 saw a significant number of COVID-19 deaths, while vaccination efforts began ramping up.",
         year: 2021,
         annotations: [
-            { year: "2021-01-01", deaths: 100000, vaccinations: 5000000, text: "Early 2021: High deaths, vaccination rollout begins." },
-            { year: "2021-06-01", deaths: 300000, vaccinations: 15000000, text: "Mid 2021: Vaccinations increase, deaths start to decrease." }
+            { month: 1, deaths: 190740.85799999986, vaccinations: 60356748.0, text: "January 2021: High deaths, vaccination rollout begins." },
+            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May 2021: Continued vaccination efforts." }
         ]
     },
     {
         id: 2,
-        title: "2022: Continued Vaccinations and Impact on Deaths",
-        content: "In 2022, widespread vaccination led to a decrease in COVID-19 deaths.",
+        title: "2022: Continued Efforts",
+        content: "2022 continued with significant efforts in vaccinations and a decrease in deaths.",
         year: 2022,
         annotations: [
-            { year: "2022-01-01", deaths: 50000, vaccinations: 30000000, text: "Early 2022: Vaccinations continue, deaths decrease." },
-            { year: "2022-12-01", deaths: 10000, vaccinations: 60000000, text: "Late 2022: Significant drop in deaths." }
+            { month: 3, deaths: 80424.85000000005, vaccinations: 161874846.0, text: "March 2022: Increased vaccinations, fewer deaths." }
         ]
     },
     {
         id: 3,
-        title: "2023: Stabilization and Ongoing Vaccination Efforts",
-        content: "By 2023, COVID-19 deaths have stabilized, and vaccination efforts continue.",
+        title: "2023: Stabilization",
+        content: "2023 saw a stabilization in deaths and continued vaccinations.",
         year: 2023,
         annotations: [
-            { year: "2023-01-01", deaths: 5000, vaccinations: 70000000, text: "Early 2023: Continued low death rates." },
-            { year: "2023-06-01", deaths: 3000, vaccinations: 75000000, text: "Mid 2023: Ongoing vaccinations, stable death rates." }
+            { month: 4, deaths: 43591.153999999944, vaccinations: 183419494.0, text: "April 2023: Stable deaths and high vaccination rates." }
         ]
     }
 ];
@@ -111,24 +109,6 @@ function renderSlide(slideIndex) {
         });
     });
 }
-
-d3.select("#btn1").on("click", () => {
-    currentSlide = 0;
-    renderSlide(currentSlide);
-});
-
-d3.select("#btn2").on("click", () => {
-    currentSlide = 1;
-    renderSlide(currentSlide);
-});
-
-d3.select("#btn3").on("click", () => {
-    currentSlide = 2;
-    renderSlide(currentSlide);
-});
-
-renderSlide(currentSlide);
-
 
 d3.select("#yearSlider").on("input", function() {
     const year = +this.value;
