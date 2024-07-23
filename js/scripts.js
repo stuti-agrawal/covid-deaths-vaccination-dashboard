@@ -6,7 +6,7 @@ const slides = [
         year: 2021,
         annotations: [
             { month: 1, deaths: 190740.85799999986, vaccinations: 60356748.0, text: "January 2021: High deaths, vaccination rollout begins." },
-            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May 2021: Continued vaccination efforts." }
+            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May: Continued vaccination efforts." }
         ]
     },
     {
