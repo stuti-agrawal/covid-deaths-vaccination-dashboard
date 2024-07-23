@@ -39,11 +39,11 @@ h1 {
 #graphs {
     display: flex;
     width: 70%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 #chart-deaths, #chart-vaccinations {
-    width: 35%;
+    width: 45%;
 }
 
 .nav-buttons {
