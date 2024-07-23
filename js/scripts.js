@@ -49,17 +49,9 @@ function renderSlide(slideIndex) {
         return;
     }
 
-    const chartDeathsElement = chartDeaths.node();
-    const chartVaccinationsElement = chartVaccinations.node();
-
-    if (!chartDeathsElement || !chartVaccinationsElement) {
-        console.error("Could not find chart elements.");
-        return;
-    }
-
-    const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-    const width = 500;
-    const height = 300;
+    const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+    const width = parseInt(chartDeaths.style("width")) - margin.left - margin.right;
+    const height = parseInt(chartDeaths.style("height")) - margin.top - margin.bottom;
 
     const svgDeaths = chartDeaths.append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -133,7 +125,7 @@ function renderSlide(slideIndex) {
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
-            svgVaccinations.append("g")
+        svgVaccinations.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
@@ -142,6 +134,32 @@ function renderSlide(slideIndex) {
 
         svgVaccinations.append("g")
             .call(yAxisVaccinations);
+
+        svgDeaths.append("text")
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom - 10)
+            .attr("text-anchor", "middle")
+            .text("Month");
+
+        svgDeaths.append("text")
+            .attr("x", -height / 2)
+            .attr("y", -margin.left + 15)
+            .attr("transform", "rotate(-90)")
+            .attr("text-anchor", "middle")
+            .text("Deaths");
+
+        svgVaccinations.append("text")
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom - 10)
+            .attr("text-anchor", "middle")
+            .text("Month");
+
+        svgVaccinations.append("text")
+            .attr("x", -height / 2)
+            .attr("y", -margin.left + 15)
+            .attr("transform", "rotate(-90)")
+            .attr("text-anchor", "middle")
+            .text("Vaccinations");
 
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -193,42 +211,49 @@ function renderSlide(slideIndex) {
                 .attr("y", yDeaths(annotation.deaths))
                 .attr("class", "annotation")
                 .text(annotation.text);
+
+            svgVaccinations.append("text")
+                .attr("x", x(annotation.month))
+                .attr("y", yVaccinations(annotation.vaccinations))
+                .attr("class", "annotation")
+                .text(annotation.text);
+            });
         });
+    }
+    
+    function updateNavButtons() {
+        d3.selectAll(".nav-btn").classed("active", false);
+        d3.select(`#btn${currentSlide + 1}`).classed("active", true);
+    }
+    
+    d3.select("#yearSlider").on("input", function() {
+        const year = +this.value;
+        currentSlide = slides.findIndex(slide => slide.year === year);
+        renderSlide(currentSlide);
+        updateNavButtons();
     });
-}
-
-function updateNavButtons() {
-    d3.selectAll(".nav-btn").classed("active", false);
-    d3.select(`#btn${currentSlide + 1}`).classed("active", true);
-}
-
-d3.select("#yearSlider").on("input", function() {
-    const year = +this.value;
-    currentSlide = slides.findIndex(slide => slide.year === year);
+    
+    d3.select("#btn1").on("click", () => {
+        currentSlide = 0;
+        renderSlide(currentSlide);
+        document.getElementById("yearSlider").value = slides[currentSlide].year;
+        updateNavButtons();
+    });
+    
+    d3.select("#btn2").on("click", () => {
+        currentSlide = 1;
+        renderSlide(currentSlide);
+        document.getElementById("yearSlider").value = slides[currentSlide].year;
+        updateNavButtons();
+    });
+    
+    d3.select("#btn3").on("click", () => {
+        currentSlide = 2;
+        renderSlide(currentSlide);
+        document.getElementById("yearSlider").value = slides[currentSlide].year;
+        updateNavButtons();
+    });
+    
     renderSlide(currentSlide);
     updateNavButtons();
-});
-
-d3.select("#btn1").on("click", () => {
-    currentSlide = 0;
-    renderSlide(currentSlide);
-    document.getElementById("yearSlider").value = slides[currentSlide].year;
-    updateNavButtons();
-});
-
-d3.select("#btn2").on("click", () => {
-    currentSlide = 1;
-    renderSlide(currentSlide);
-    document.getElementById("yearSlider").value = slides[currentSlide].year;
-    updateNavButtons();
-});
-
-d3.select("#btn3").on("click", () => {
-    currentSlide = 2;
-    renderSlide(currentSlide);
-    document.getElementById("yearSlider").value = slides[currentSlide].year;
-    updateNavButtons();
-});
-
-renderSlide(currentSlide);
-updateNavButtons();
+    
