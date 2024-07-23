@@ -6,7 +6,7 @@ const slides = [
         year: 2021,
         annotations: [
             { month: 1, deaths: 190740.85799999986, vaccinations: 60356748.0, text: "January 2021: High deaths, vaccination rollout begins." },
-            { month: 4, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "Death rates begin to fall" }
+            { month: 4, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "April 2021: Death rates begin to fall" }
         ]
     },
     {
@@ -210,7 +210,14 @@ function renderSlide(slideIndex) {
                 .attr("y", yDeaths(annotation.deaths))
                 .attr("class", "annotation")
                 .text(annotation.text);
+
+            svgDeaths.append("text")
+                .attr("x", x(annotation.month))
+                .attr("y", yDeaths(annotation.deaths))
+                .attr("class", "annotation")
+                .text(annotation.text);
         });
+
     });
 }
 
