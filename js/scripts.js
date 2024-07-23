@@ -34,25 +34,24 @@ let currentSlide = 0;
 
 function renderSlide(slideIndex) {
     const slide = slides[slideIndex];
-    const container = d3.select("#container");
     const textBox = d3.select("#text-box");
     const chart = d3.select("#chart");
-    
+
     textBox.selectAll("*").remove();
     textBox.append("h2").text(slide.title);
     textBox.append("p").text(slide.content);
-    
+
     chart.selectAll("*").remove();
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
     const width = chart.node().clientWidth - margin.left - margin.right;
     const height = chart.node().clientHeight - margin.top - margin.bottom;
-    
+
     const svg = chart.append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
-    
+
     d3.csv("data/covid_yearly_data.csv").then(data => {
         data.forEach(d => {
             d.year = +d.year;
@@ -60,55 +59,55 @@ function renderSlide(slideIndex) {
             d.new_deaths_smoothed = +d.new_deaths_smoothed;
             d.new_vaccinations_smoothed = +d.new_vaccinations_smoothed;
         });
-        
+
         const filteredData = data.filter(d => d.year === slide.year);
-        
+
         const x = d3.scaleLinear()
             .domain([1, 12])
             .range([0, width]);
-        
+
         const y1 = d3.scaleLinear()
             .domain([0, d3.max(filteredData, d => d.new_deaths_smoothed)])
             .range([height, 0]);
-        
+
         const y2 = d3.scaleLinear()
             .domain([0, d3.max(filteredData, d => d.new_vaccinations_smoothed)])
             .range([height, 0]);
-        
+
         const lineDeaths = d3.line()
             .x(d => x(d.month))
             .y(d => y1(d.new_deaths_smoothed));
-        
+
         const lineVaccinations = d3.line()
             .x(d => x(d.month))
             .y(d => y2(d.new_vaccinations_smoothed));
-        
+
         svg.append("path")
             .data([filteredData])
             .attr("class", "line deaths")
             .attr("d", lineDeaths)
             .attr("stroke", "red");
-        
+
         svg.append("path")
             .data([filteredData])
             .attr("class", "line vaccinations")
             .attr("d", lineVaccinations)
             .attr("stroke", "green");
-        
+
         svg.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(d3.axisBottom(x).ticks(12).tickFormat(d3.format("d")));
-        
+
         svg.append("g")
             .call(d3.axisLeft(y1));
-        
+
         svg.append("g")
             .attr("transform", `translate(${width},0)`)
             .call(d3.axisRight(y2));
-        
+
         slide.annotations.forEach(annotation => {
             svg.append("text")
-                .attr("x", x(new Date(annotation.month)))
+                .attr("x", x(annotation.month))
                 .attr("y", y1(annotation.deaths))
                 .attr("class", "annotation")
                 .text(annotation.text);
