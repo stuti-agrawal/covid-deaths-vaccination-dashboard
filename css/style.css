@@ -36,15 +36,16 @@ h1 {
     padding: 20px;
 }
 
-#graphs {
+#charts {
     display: flex;
-    width: 70%;
-    justify-content: space-around;
+    flex-direction: column; /* Change to column to stack charts */
+    width: 75%;
+    padding: 20px;
 }
 
 #chart-deaths, #chart-vaccinations {
-    width: 45%;
-    height: 400px;  /* Ensure this height is enough for the graphs */
+    width: 100%;
+    height: 400px;
 }
 
 .nav-buttons {
