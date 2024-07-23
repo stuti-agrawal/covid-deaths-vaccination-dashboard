@@ -25,11 +25,9 @@ h1 {
     justify-content: space-between;
     width: 60%;
     margin-top: 5px;
-    position: absolute;
-    top: 30px;
-    left: 20%;
+    position: relative;
+    top: -10px;
 }
-
 #content {
     display: flex;
     justify-content: center;
