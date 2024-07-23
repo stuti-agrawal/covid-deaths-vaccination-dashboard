@@ -80,3 +80,10 @@ h1 {
     border-radius: 8px;
     pointer-events: none;
 }
+
+#yearLabels {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-top: 5px;
+}
