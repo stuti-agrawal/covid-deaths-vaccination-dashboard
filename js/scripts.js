@@ -43,6 +43,11 @@ function renderSlide(slideIndex) {
 
     chartDeaths.selectAll("*").remove();
     chartVaccinations.selectAll("*").remove();
+
+    if (chartDeaths.empty() || chartVaccinations.empty()) {
+        console.error("Chart elements not found!");
+        return;
+    }
     
     const margin = { top: 20, right: 30, bottom: 30, left: 50 };
     const width = chartDeaths.node().clientWidth - margin.left - margin.right;
@@ -91,7 +96,8 @@ function renderSlide(slideIndex) {
             .x(d => x(d.month))
             .y(d => yVaccinations(d.new_vaccinations_smoothed))
             .curve(d3.curveMonotoneX);
-            svgDeaths.append("path")
+
+        svgDeaths.append("path")
             .data([filteredData])
             .attr("class", "line deaths")
             .attr("d", lineDeaths)
