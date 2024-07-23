@@ -30,7 +30,6 @@ const slides = [
         ]
     }
 ];
-
 let currentSlide = 0;
 
 function renderSlide(slideIndex) {
@@ -56,15 +55,16 @@ function renderSlide(slideIndex) {
     
     d3.csv("data/covid_yearly_data.csv").then(data => {
         data.forEach(d => {
-            d.year = new Date(d.year, 0, 1);
+            d.year = +d.year;
+            d.month = +d.month;
             d.new_deaths_smoothed = +d.new_deaths_smoothed;
             d.new_vaccinations_smoothed = +d.new_vaccinations_smoothed;
         });
         
-        const filteredData = data.filter(d => d.year.getFullYear() === slide.year);
+        const filteredData = data.filter(d => d.year === slide.year);
         
-        const x = d3.scaleTime()
-            .domain(d3.extent(filteredData, d => d.year))
+        const x = d3.scaleLinear()
+            .domain([1, 12])
             .range([0, width]);
         
         const y1 = d3.scaleLinear()
@@ -76,11 +76,11 @@ function renderSlide(slideIndex) {
             .range([height, 0]);
         
         const lineDeaths = d3.line()
-            .x(d => x(d.year))
+            .x(d => x(d.month))
             .y(d => y1(d.new_deaths_smoothed));
         
         const lineVaccinations = d3.line()
-            .x(d => x(d.year))
+            .x(d => x(d.month))
             .y(d => y2(d.new_vaccinations_smoothed));
         
         svg.append("path")
@@ -97,7 +97,7 @@ function renderSlide(slideIndex) {
         
         svg.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).ticks(12).tickFormat(d3.format("d")));
         
         svg.append("g")
             .call(d3.axisLeft(y1));
@@ -108,7 +108,7 @@ function renderSlide(slideIndex) {
         
         slide.annotations.forEach(annotation => {
             svg.append("text")
-                .attr("x", x(new Date(annotation.year)))
+                .attr("x", x(new Date(annotation.month)))
                 .attr("y", y1(annotation.deaths))
                 .attr("class", "annotation")
                 .text(annotation.text);
