@@ -103,19 +103,73 @@ function renderSlide(slideIndex) {
             .attr("stroke", "green")
             .attr("fill", "none");
 
+        const xAxis = d3.axisBottom(x)
+            .ticks(12)
+            .tickFormat(d => d3.timeFormat("%b")(new Date(2021, d - 1, 1)));
+
+        const yAxisDeaths = d3.axisLeft(yDeaths)
+            .tickFormat(d3.format(".2s"));
+
+        const yAxisVaccinations = d3.axisLeft(yVaccinations)
+            .tickFormat(d3.format(".2s"));
+
         svgDeaths.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x).ticks(12).tickFormat(d3.format("d")));
+            .call(xAxis);
 
         svgVaccinations.append("g")
             .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x).ticks(12).tickFormat(d3.format("d")));
+            .call(xAxis);
 
         svgDeaths.append("g")
-            .call(d3.axisLeft(yDeaths));
+            .call(yAxisDeaths);
 
         svgVaccinations.append("g")
-            .call(d3.axisLeft(yVaccinations));
+            .call(yAxisVaccinations);
+
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("position", "absolute")
+            .style("visibility", "hidden")
+            .style("background", "#fff")
+            .style("padding", "5px")
+            .style("border", "1px solid #ccc")
+            .style("border-radius", "5px");
+
+        function showTooltip(event, d, type) {
+            const monthName = d3.timeFormat("%B")(new Date(2021, d.month - 1, 1));
+            const value = type === "deaths" ? d.new_deaths_smoothed : d.new_vaccinations_smoothed;
+            tooltip.html(`${monthName}: ${value}`)
+                .style("top", `${event.pageY - 10}px`)
+                .style("left", `${event.pageX + 10}px`);
+            tooltip.style("visibility", "visible");
+        }
+
+        function hideTooltip() {
+            tooltip.style("visibility", "hidden");
+        }
+
+        svgDeaths.selectAll(".dot")
+            .data(filteredData)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", d => x(d.month))
+            .attr("cy", d => yDeaths(d.new_deaths_smoothed))
+            .attr("r", 5)
+            .attr("fill", "red")
+            .on("mouseover", (event, d) => showTooltip(event, d, "deaths"))
+            .on("mouseout", hideTooltip);
+
+        svgVaccinations.selectAll(".dot")
+            .data(filteredData)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", d => x(d.month))
+            .attr("cy", d => yVaccinations(d.new_vaccinations_smoothed))
+            .attr("r", 5)
+            .attr("fill", "green")
+            .on("mouseover", (event, d) => showTooltip(event, d, "vaccinations"))
+            .on("mouseout", hideTooltip);
 
         slide.annotations.forEach(annotation => {
             svgDeaths.append("text")
@@ -168,4 +222,3 @@ d3.select("#btn3").on("click", () => {
     document.getElementById("yearSlider").value = slides[currentSlide].year;
 });
 
-renderSlide(currentSlide);
