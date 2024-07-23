@@ -48,10 +48,18 @@ function renderSlide(slideIndex) {
         console.error("Chart elements not found!");
         return;
     }
-    
+
+    const chartDeathsElement = chartDeaths.node();
+    const chartVaccinationsElement = chartVaccinations.node();
+
+    if (!chartDeathsElement || !chartVaccinationsElement) {
+        console.error("Could not find chart elements.");
+        return;
+    }
+
     const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-    const width = chartDeaths.node().clientWidth - margin.left - margin.right;
-    const height = chartDeaths.node().clientHeight - margin.top - margin.bottom;
+    const width = 500;
+    const height = 300;
 
     const svgDeaths = chartDeaths.append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -125,7 +133,7 @@ function renderSlide(slideIndex) {
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
-        svgVaccinations.append("g")
+            svgVaccinations.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
 
