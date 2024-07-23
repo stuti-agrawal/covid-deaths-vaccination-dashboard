@@ -2,34 +2,46 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
 }
 
-#container {
+#main-container {
     width: 80%;
-    height: 80%;
+    height: 90%;
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+}
+
+h1 {
+    margin: 0 0 20px 0;
+    text-align: left;
+    width: 100%;
+}
+
+#content {
+    display: flex;
+    width: 100%;
+    height: 70%;
 }
 
 #text-box {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 20px;
+    width: 30%;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
 }
 
 #chart {
-    width: 100%;
-    height: 60%;
+    width: 70%;
+    padding: 20px;
 }
 
 .annotation {
@@ -41,22 +53,17 @@ body {
 }
 
 .nav-buttons {
-    position: absolute;
-    bottom: 20px;
     width: 100%;
     text-align: center;
+    margin-top: 20px;
 }
 
-.nav-buttons button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+#yearSlider {
+    width: 80%;
 }
 
-.nav-buttons button:disabled {
-    background-color: #ccc;
+#yearLabel {
+    margin-left: 10px;
+    font-size: 18px;
+    vertical-align: middle;
 }
