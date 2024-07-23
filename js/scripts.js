@@ -72,11 +72,11 @@ function renderSlide(slideIndex) {
             .range([0, width]);
 
         const yDeaths = d3.scaleLinear()
-            .domain([0, d3.max(filteredData, d => d.new_deaths_smoothed)])
+            .domain([0, d3.max(filteredData, d => d.new_deaths_smoothed) * 1.2])
             .range([height, 0]);
 
         const yVaccinations = d3.scaleLinear()
-            .domain([0, d3.max(filteredData, d => d.new_vaccinations_smoothed)])
+            .domain([0, d3.max(filteredData, d => d.new_vaccinations_smoothed) * 1.2])
             .range([height, 0]);
 
         const lineDeaths = d3.line()
@@ -222,3 +222,4 @@ d3.select("#btn3").on("click", () => {
     document.getElementById("yearSlider").value = slides[currentSlide].year;
 });
 
+renderSlide(currentSlide);
