@@ -2,11 +2,11 @@ const slides = [
     {
         id: 1,
         title: "2021: COVID-19 Deaths and Vaccinations",
-        content: "2021 saw a significant number of COVID-19 deaths, while vaccination efforts began ramping up.",
+        content: "The year 2021 was marked by significant challenges and efforts in the global fight against COVID-19. As the pandemic continued to affect millions, the world saw both a high number of deaths and an unprecedented vaccination campaign. In early 2021, the number of new COVID-19 deaths was alarmingly high, as seen in January. This period was characterized by overwhelmed healthcare systems and stringent public health measures to contain the virus spread. However, this period also marked the beginning of a large-scale vaccination rollout. By May 2021, the vaccination efforts had ramped up significantly, leading to a noticeable decrease in the number of new deaths. The widespread distribution and administration of vaccines started to show positive effects, although the situation remained challenging with variations in vaccine availability and uptake across different regions.",
         year: 2021,
         annotations: [
             { month: 1, deaths: 190740.85799999986, vaccinations: 60356748.0, text: "January 2021: High deaths, vaccination rollout begins." },
-            { month: 5, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "May 2021: Continued vaccination efforts." }
+            { month: 4, deaths: 36450.272000000004, vaccinations: 114530378.0, text: "Death rates begin to fall" }
         ]
     },
     {
