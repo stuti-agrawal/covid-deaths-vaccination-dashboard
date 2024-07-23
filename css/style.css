@@ -12,10 +12,12 @@ h1 {
     align-items: center;
     justify-content: center;
     margin: 20px 0;
+    position: relative;
 }
 
 #yearSlider {
     width: 60%;
+    margin: 0 auto;
 }
 
 #slider-values {
@@ -39,16 +41,14 @@ h1 {
     padding: 20px;
 }
 
-#charts {
+#graphs {
     display: flex;
-    flex-direction: column; /* Change to column to stack charts */
-    width: 75%;
-    padding: 20px;
+    justify-content: space-between;
+    width: 70%;
 }
 
 #chart-deaths, #chart-vaccinations {
-    width: 100%;
-    height: 400px;
+    width: 48%; /* Ensure the charts are side by side */
 }
 
 .nav-buttons {
