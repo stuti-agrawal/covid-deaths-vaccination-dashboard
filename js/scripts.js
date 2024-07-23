@@ -57,8 +57,8 @@ function renderSlide(slideIndex) {
     d3.csv("data/covid_yearly_data.csv").then(data => {
         data.forEach(d => {
             d.year = new Date(d.year, 0, 1);
-            d.new_deaths = +d.new_deaths;
-            d.new_vaccinations = +d.new_vaccinations;
+            d.new_deaths = +d.new_deaths_smoothed;
+            d.new_vaccinations = +d.new_vaccinations_smoothed;
         });
         
         const filteredData = data.filter(d => d.year.getFullYear() === slide.year);
