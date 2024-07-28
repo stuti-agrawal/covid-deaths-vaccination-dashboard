@@ -12,7 +12,7 @@ const slides = [
     {
         id: 2,
         title: "2022: Continued Efforts",
-        content: "2022 continued with significant efforts in vaccinations and a decrease in deaths.",
+        content: "The year 2022 witnessed significant progress in the global effort to combat COVID-19. With sustained and rigorous vaccination campaigns, there was a notable increase in vaccination rates early in the year, peaking in March. This surge in vaccinations corresponded with a significant reduction in the number of new COVID-19 deaths, which continued to decline steadily throughout the year. By maintaining high levels of public health measures and vaccine distribution, 2022 marked a pivotal year in reducing the pandemic's impact, with fewer deaths and a better-controlled spread of the virus.",
         year: 2022,
         annotations: [
             { month: 3, deaths: 80424.85000000005, vaccinations: 161874846.0, text: "March 2022: Increased vaccinations, fewer deaths." }
@@ -21,7 +21,7 @@ const slides = [
     {
         id: 3,
         title: "2023: Stabilization",
-        content: "2023 saw a stabilization in deaths and continued vaccinations.",
+        content: "In 2023, the global response to COVID-19 reached a phase of stabilization. The year saw a consistent decrease in the number of new deaths, with figures dropping steadily from January through May. This trend indicates the positive impact of ongoing vaccination campaigns and public health measures. Although the rate of new vaccinations slowed compared to previous years, the cumulative effect of prior vaccination efforts continued to play a crucial role in controlling the virus. The overall stabilization of deaths and continued vaccination efforts reflect a significant milestone in managing the pandemic.",
         year: 2023,
         annotations: [
             { month: 4, deaths: 43591.153999999944, vaccinations: 183419494.0, text: "April 2023: Stable deaths and high vaccination rates." }
