@@ -36,7 +36,7 @@ h1 {
 
 #slider-values span {
     text-align: center;
-    width: 33.3333%; /* Ensures the spans take up equal space */
+    width: 2%; /* Ensures the spans take up equal space */
     transform: translateX(-50%); /* Centers the labels under the ticks */
 }
 
