@@ -15,19 +15,31 @@ h1 {
     position: relative;
 }
 
+.slider-container {
+    position: relative;
+    width: 80%;
+}
+
 #yearSlider {
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
 }
 
 #slider-values {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 100%;
     margin-top: 5px;
-    position: relative;
-    top: 10px;
+    position: absolute;
+    top: 25px; /* Adjust this value to position the labels correctly */
 }
+
+#slider-values span {
+    text-align: center;
+    width: 33.3333%; /* Ensures the spans take up equal space */
+    transform: translateX(-50%); /* Centers the labels under the ticks */
+}
+
 #content {
     display: flex;
     justify-content: center;
