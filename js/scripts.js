@@ -170,7 +170,7 @@ function renderSlide(slideIndex) {
             .attr("y", height + margin.bottom)
             .attr("x", width / 2)
             .style("text-anchor", "middle")
-            .text(`Year ${slide.year}`);
+            .text(`${slide.year}`);
 
 
         const tooltip = d3.select("body").append("div")
