@@ -160,6 +160,19 @@ function renderSlide(slideIndex) {
             .style("text-anchor", "middle")
             .text("New Vaccinations Smoothed");
 
+        svgDeaths.append("text")
+            .attr("y", height + margin.bottom)
+            .attr("x", width / 2)
+            .style("text-anchor", "middle")
+            .text(`${slide.year}`);
+        
+        svgVaccinations.append("text")
+            .attr("y", height + margin.bottom)
+            .attr("x", width / 2)
+            .style("text-anchor", "middle")
+            .text(`Year ${slide.year}`);
+
+
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("position", "absolute")
